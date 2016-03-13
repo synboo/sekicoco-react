@@ -17,26 +17,24 @@ var Select = React.createClass({
         this.props.onCountChange({count: count, type: this.props.type});
     },
 
+    getDescription: function() {
+        switch (this.props.type) {
+            case 'deskCount':
+                return '1つの机に座れる人数';
+            case 'columnCount':
+                return '机の列数';
+            case 'rowCount':
+                return '机の行数';
+        }
+    },
+
     render: function() {
 
         var optionCount = 100;
-        var optionItems = [];
-        for (var i = 1; i <= optionCount; i++) {
-            optionItems.push(<Option key={i} value={i} />)
-        }
-
-        var description;
-        switch (this.props.type) {
-            case 'deskCount':
-                description = '1つの机に座れる人数';
-                break;
-            case 'columnCount':
-                description = '机の列数';
-                break;
-            case 'rowCount':
-                description = '机の行数';
-                break;
-        }
+        var optionItems = _.fill((new Array(optionCount)), 0).map(function(e, i) {
+           return <Option key={i} value={i} />;
+        });
+        var description = this.getDescription();
 
         return (
             <div className="select">
@@ -72,7 +70,7 @@ var Setting = React.createClass({
 var Desk = React.createClass({
     render: function() {
         return (
-            <div className="desk">&nbsp;</div>
+            <div className="desk"></div>
         )
     }
 });
@@ -106,7 +104,10 @@ var Zaseki = React.createClass({
     render: function() {
         var rowCount = this.props.rowCount;
         var rowItems = _.fill((new Array(rowCount)), 0).map(function(e, i) {
-            return <Row key={i} value={i} deskCount={this.props.deskCount} columnCount={this.props.columnCount} />
+            return <Row key={i}
+                        value={i}
+                        deskCount={this.props.deskCount}
+                        columnCount={this.props.columnCount} />
         }, this);
 
         return (
@@ -126,11 +127,7 @@ var App = React.createClass({
         };
     },
 
-    /**
-     * @param data { type: 'deskCount', count: 1 }
-     */
-    handleCountChange: function (data) {
-        var state = this.state;
+    setStateCount: function(state, data) {
         switch (data.type) {
             case 'deskCount':
                 state.deskCount = data.count;
@@ -142,14 +139,23 @@ var App = React.createClass({
                 state.rowCount = data.count;
                 break;
         }
-        this.setState(state);
+        return state;
+    },
+
+    /**
+     * @param data { type: 'deskCount', count: 1 }
+     */
+    handleCountChange: function (data) {
+        this.setState(this.setStateCount(this.state, data));
     },
 
     render: function() {
         return (
             <div className="app">
                 <Setting onCountChange={this.handleCountChange} />
-                <Zaseki deskCount={this.state.deskCount} columnCount={this.state.columnCount} rowCount={this.state.rowCount} />
+                <Zaseki deskCount={this.state.deskCount}
+                        columnCount={this.state.columnCount}
+                        rowCount={this.state.rowCount} />
             </div>
         );
     }
