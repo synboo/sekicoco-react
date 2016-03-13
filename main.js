@@ -10,6 +10,9 @@ var Option = React.createClass({
     }
 });
 
+/**
+ * 数を変更するセレクトメニューのコンポーネント
+ */
 var Select = React.createClass({
 
     handleChange: function(event) {
@@ -30,9 +33,9 @@ var Select = React.createClass({
 
     render: function() {
 
-        var optionCount = 100;
+        var optionCount = 99;
         var optionItems = _.fill((new Array(optionCount)), 0).map(function(e, i) {
-           return <Option key={i} value={i} />;
+           return <Option key={i+1} value={i+1} />;
         });
         var description = this.getDescription();
 
@@ -47,6 +50,9 @@ var Select = React.createClass({
     }
 });
 
+/**
+ * 設定部分のコンポーネント
+ */
 var Setting = React.createClass({
 
     handleCountChange: function(data) {
@@ -67,6 +73,9 @@ var Setting = React.createClass({
     }
 });
 
+/**
+ * 座席の一番小さい単位のコンポーネント。一席分
+ */
 var Desk = React.createClass({
     render: function() {
         return (
@@ -75,6 +84,9 @@ var Desk = React.createClass({
     }
 });
 
+/**
+ * 複数の机(Deskコンポーネント)を持つことができるテーブル
+ */
 var Table = React.createClass({
     render: function() {
         var deskCount = this.props.deskCount;
@@ -87,6 +99,9 @@ var Table = React.createClass({
     }
 });
 
+/**
+ * 座席の一行分のコンポーネント
+ */
 var Row = React.createClass({
     render: function() {
         var tableItems = _.fill((new Array(this.props.columnCount)), 0).map(function(e, i) {
@@ -100,6 +115,9 @@ var Row = React.createClass({
     }
 });
 
+/**
+ * 座席の一番親のコンポーネント
+ */
 var Zaseki = React.createClass({
     render: function() {
         var rowCount = this.props.rowCount;
@@ -118,6 +136,9 @@ var Zaseki = React.createClass({
     }
 });
 
+/**
+ * アプリ全体のコンポーネント。一番親の要素
+ */
 var App = React.createClass({
     getInitialState: function() {
         return {
@@ -161,6 +182,9 @@ var App = React.createClass({
     }
 });
 
+/**
+ * Appコンポーネントのレンダリング
+ */
 ReactDOM.render(
     <App />,
     document.getElementById('root')
