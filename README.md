@@ -11,16 +11,16 @@ $ git clone git@github.com:synboo/sekicoco-react.git
 // Change the directory
 $ cd sekicoco-react
 
-// Install libraries
-$ npm install
-
 // Open html file
 $ open index.html
 ```
 
-### Rebuild bundle.js
+### Try to modify main.js
 
 ```
+// Install local libraries
+$ npm install
+
 // Install browserify
 $ npm install -g browserify
 
