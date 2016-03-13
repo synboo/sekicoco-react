@@ -15,7 +15,7 @@ $ cd sekicoco-react
 $ open index.html
 ```
 
-### Try to modify main.js
+### How to modify main.js
 
 ```
 // Install local libraries
@@ -24,6 +24,6 @@ $ npm install
 // Install browserify
 $ npm install -g browserify
 
-// Modify main.js and regenerate bundle.js
+// If you modify main.js, you have to rebuild bundle.js
 $ browserify -t [ babelify --presets [ react ] ] main.js -o bundle.js
 ```
